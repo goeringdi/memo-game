@@ -3,10 +3,12 @@
     padding: 0;
 }
 
-// @font-face {
-//     font-family: 'StratosSkyeng';
-//     src: url(statosskyeng-v1.001/DesktopFonts/stratosskyeng-regular) format(opentype);
-//    }
+@font-face {
+    font-family: "StratosSkyeng";
+    src: url("../statosskyeng-v1.001/WebFonts/stratosskyengweb-regular.woff2") format("woff2"),
+    url("../statosskyeng-v1.001/WebFonts/stratosskyengweb-regular.woff") format("woff");
+}
+
 
 body {
     background-color: #004980;
@@ -14,6 +16,7 @@ body {
     width: 100vw;
     display: flex;
     justify-content: center;
+    font-family: "StratosSkyeng";
 }
 
 .levelBox {

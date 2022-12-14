@@ -1,7 +1,13 @@
 window.application = {
     blocks: {},
     screens: {},
-    renderScreen: function (screenName) {},
+    renderScreen: function (screenName) {
+        if (!window.application.blocks[screenName]) {
+            console.log("Такого экрана нет");
+        } else {
+            this.blocks[screenName];
+        }
+    },
     renderBlock: function (blockName, container) {
         if (!window.application.blocks[blockName]) {
             console.log("Такого блока нет");
@@ -191,16 +197,15 @@ function renderGameScreen() {
 
     let sec = 0;
     let min = 0;
-    let timer;
 
     function startTimer() {
-        timer = setInterval(function () {
+        setInterval(function () {
             sec++;
             secTimer.textContent = sec;
             if (sec < 10) {
                 secTimer.textContent = "0" + sec;
             }
-            if (sec == 60) {
+            if (sec === 60) {
                 sec = 0;
                 min++;
                 minTimer.textContent = min + ".";
@@ -217,7 +222,7 @@ function renderGameScreen() {
             renderGameScreen();
         });
     }
-    window.application.timers.push(setTimeout(cardsHidden, 5000));
-    window.application.timers.push(setTimeout(startTimer, 4000));
+    window.application.timers.push(setTimeout(cardsHidden, 3000));
+    window.application.timers.push(setTimeout(startTimer, 2000));
 }
 window.application.screens["game"] = renderGameScreen;
