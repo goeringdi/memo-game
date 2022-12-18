@@ -1,3 +1,5 @@
+import "./styles/style.scss"
+
 window.application = {
     blocks: {},
     screens: {},
@@ -17,6 +19,9 @@ window.application = {
     },
     timers: [],
 };
+
+// window.application.renderScreen("level");
+
 
 const container = document.querySelector(".container");
 window.application.renderScreen("level");
@@ -181,17 +186,13 @@ function renderGameScreen() {
         item.appendChild(img);
     }
 
+    const items = document.querySelectorAll(".item");
+
     function cardsHidden() {
-        const items = document.querySelectorAll(".item");
-        const images = document.querySelectorAll(".image");
-
         items.forEach((item) => {
-            item.classList.add("shirt");
-        });
-
-        images.forEach((image) => {
-            image.classList.remove("image");
-            image.classList.add("hidden");
+            const upperBlock = document.createElement("div");
+            upperBlock.classList.add("shirt");
+            item.appendChild(upperBlock);
         });
     }
 
@@ -222,7 +223,55 @@ function renderGameScreen() {
             renderGameScreen();
         });
     }
-    window.application.timers.push(setTimeout(cardsHidden, 3000));
-    window.application.timers.push(setTimeout(startTimer, 2000));
+    window.application.timers.push(setTimeout(cardsHidden, 5000));
+    window.application.timers.push(setTimeout(startTimer, 4000));
+
+    let compared = [];
+    let counter = 0;
+
+    items.forEach((item) => {
+        item.addEventListener("click", function () {
+            if (item.children.length > 1) {
+                item.removeChild(item.lastElementChild);
+                compared.push(item.firstElementChild);
+                console.log(compared);
+                console.log(item.firstElementChild.attributes.src.nodeValue);
+            } else {
+                return;
+            }
+            if (compared.length >= 2) {
+                if (
+                    compared[0].attributes.src.nodeValue ===
+                    compared[1].attributes.src.nodeValue
+                ) {
+                    console.log("ok");
+                    compared = [];
+                    items.forEach((item) => {
+                        if (item.children.length === 1) {
+                            counter += 1;
+                            console.log(counter);
+                            const comparisonСounter = numberOfCards * 4;
+                            console.log(comparisonСounter);
+                            if (counter === comparisonСounter) {
+                                renderWinScreen();
+                            }
+                        }
+                    });
+                } else {
+                    renderLoseScreen();
+                }
+            }
+        });
+    });
 }
 window.application.screens["game"] = renderGameScreen;
+
+function renderWinScreen() {
+    container.textContent = "win";
+}
+window.application.screens["win"] = renderWinScreen;
+
+function renderLoseScreen() {
+    container.textContent = "lose";
+}
+window.application.screens["lose"] = renderLoseScreen;
