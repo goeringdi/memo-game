@@ -1,4 +1,4 @@
-import "./styles/style.scss"
+import("./styles/style.scss");
 
 window.application = {
     blocks: {},
@@ -19,9 +19,6 @@ window.application = {
     },
     timers: [],
 };
-
-// window.application.renderScreen("level");
-
 
 const container = document.querySelector(".container");
 window.application.renderScreen("level");
